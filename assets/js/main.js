@@ -58,6 +58,67 @@
     });
   });
 
+
+
+  // สไลด์โชว์ 
+  let slideIndex = 0;
+  const slidesContainer = document.getElementById('carouselSlides');
+  const slides = slidesContainer ? slidesContainer.children : []; 
+  const totalSlides = slides.length;
+  const dotsContainer = document.getElementById('carouselDots');
+  const prevBtn = document.getElementById('prevSlideBtn');
+  const nextBtn = document.getElementById('nextSlideBtn');
+
+  if (slidesContainer && dotsContainer && prevBtn && nextBtn) {
+      
+      for (let i = 0; i < totalSlides; i++) {
+          const dot = document.createElement('span');
+          dot.classList.add('dot');
+          dot.dataset.index = i; 
+          dotsContainer.appendChild(dot);
+      }
+      prevBtn.addEventListener('click', () => changeSlide(-1));
+      nextBtn.addEventListener('click', () => changeSlide(1));
+      
+      dotsContainer.addEventListener('click', (event) => {
+          if (event.target.classList.contains('dot')) {
+              const clickedIndex = parseInt(event.target.dataset.index);
+              currentSlide(clickedIndex);
+          }
+      });
+
+      showSlides(slideIndex);
+  } else {
+      console.warn("Carousel elements not found. Make sure IDs are correct in HTML.");
+  }
+
+    function showSlides(n) {
+      if (n >= totalSlides) { slideIndex = 0; }
+      if (n < 0) { slideIndex = totalSlides - 1; }
+
+      const newTransform = -slideIndex * 100;
+      slidesContainer.style.transform = `translateX(${newTransform}%)`; 
+      const dots = dotsContainer.children;
+      for (let i = 0; i < dots.length; i++) {
+          dots[i].classList.remove('active');
+      }
+      if (dots[slideIndex]) { 
+        dots[slideIndex].classList.add('active');
+      }
+  }
+  function changeSlide(n) {
+      showSlides(slideIndex += n);
+  }
+  function currentSlide(n) {
+      showSlides(slideIndex = n);
+  }
+
+
+
+
+
+
+
   /**
    * Preloader
    */

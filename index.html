@@ -34,6 +34,10 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha200-zcbGByYH4V2Kq9XzE2Q8D5L6M6Q7T8U7W7Y7W6Q8U6E7W7X7U7R7Q8Z9F0E0D0C0B0A0F0G0H0I0J0K0L0M0N0O0P0Q0R0S0T0U0V0W0X0Y0Z9F0E0D0C0B0A0F0G0H0I0J0K0L0M0N0O0P0Q0R0S0T0U0V0W0X0Y0Z"
+      crossorigin=""/>
 </head>
 
 <body class="index-page">
@@ -50,6 +54,7 @@
       <nav id="navmenu" class="navmenu">
         <ul>
           <li><a href="#hero" class="active">Home<br></a></li>
+          <li><a href="#location" class="active">Location<br></a></li>
           <li><a href="#about">About</a></li>
           <li><a href="#services">Services</a></li>
           <li><a href="#portfolio">Portfolio</a></li>
@@ -90,7 +95,36 @@
         <p><span class="typed" data-typed-items="Designer, Developer, Freelancer, Photographer"></span></p>
       </div>
 
-    </section><!-- /Hero Section -->
+    </section>
+    <!-- /Lacation Section -->
+    <div class="container" id="location">
+      <h1>Current location of the student</h1>
+    
+      <div id="map"></div>
+    </div>
+    <!-- /Slide image Section -->
+    <div class="container" id="picture">
+      <h1>Slide image</h1>
+          <div class="carousel-container">
+        <div class="carousel-slides" id="carouselSlides">
+            <div class="carousel-slide"><img src="assets/img/img_Tset/1.jpg" alt="รูปภาพที่ 1"></div>
+            <div class="carousel-slide"><img src="assets/img/img_Tset/2.jpg" alt="รูปภาพที่ 2"></div>
+            <div class="carousel-slide"><img src="assets/img/img_Tset/3.jpg" alt="รูปภาพที่ 3"></div>
+            <div class="carousel-slide"><img src="assets/img/img_Tset/4.jpg" alt="รูปภาพที่ 4"></div>
+            <div class="carousel-slide"><img src="assets/img/img_Tset/5.jpg" alt="รูปภาพที่ 5"></div>
+            <div class="carousel-slide"><img src="assets/img/img_Tset/6.jpg" alt="รูปภาพที่ 6"></div>
+            <div class="carousel-slide"><img src="assets/img/img_Tset/7.jpg" alt="รูปภาพที่ 7"></div>
+            <div class="carousel-slide"><img src="assets/img/img_Tset/8.jpg" alt="รูปภาพที่ 8"></div>
+            <div class="carousel-slide"><img src="assets/img/img_Tset/9.jpg" alt="รูปภาพที่ 9"></div>
+            <div class="carousel-slide"><img src="assets/img/img_Tset/10.jpg" alt="รูปภาพที่ 10"></div>
+            <div class="carousel-slide"><img src="assets/img/img_Tset/11.jpg" alt="รูปภาพที่ 11"></div>
+        </div>
+        <button class="carousel-control prev" id="prevSlideBtn">&#10094;</button>
+        <button class="carousel-control next" id="nextSlideBtn">&#10095;</button>
+    </div>
+    <div class="carousel-dots" id="carouselDots"></div>
+    </div>
+
 
     <!-- About Section -->
     <section id="about" class="about section">
@@ -907,7 +941,35 @@
 
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      
+        crossorigin=""></script>
+        <script>
+        let map;
+        let marker;
 
+        function initMap() {
+            // กำหนดพิกัด (Latitude, Longitude)
+            const myFixedLocation = [19.027749, 99.920967]; 
+            const defaultZoom = 15;
+
+            // สร้างแผนที่ Leaflet และกำหนดจุดศูนย์กลางไปที่ตำแหน่งที่ระบุ
+            map = L.map('map').setView(myFixedLocation, defaultZoom);
+
+           
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+
+            // Marker 
+            marker = L.marker(myFixedLocation).addTo(map)
+                .bindPopup("<b>ตำแหน่งของนักศึกษา " )
+                .openPopup(); 
+
+
+        }
+        document.addEventListener('DOMContentLoaded', initMap);
+    </script>
 </body>
 
 </html>
